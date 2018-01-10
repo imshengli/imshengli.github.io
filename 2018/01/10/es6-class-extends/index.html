@@ -122,7 +122,7 @@
 
 
 
-  <title>前端优化 | ImShengli</title>
+  <title>ES6 Class Extends | ImShengli</title>
   
 
 
@@ -241,7 +241,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://imshengli.github.io/2018/01/08/fe-optimize/">
+    <link itemprop="mainEntityOfPage" href="https://imshengli.github.io/2018/01/10/es6-class-extends/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZhangShengli">
@@ -258,7 +258,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">前端优化</h1>
+          <h1 class="post-title" itemprop="name headline">ES6 Class Extends</h1>
         
 
         <div class="post-meta">
@@ -270,7 +270,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-08T14:35:00+08:00">2018-01-08</time>
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-10T00:24:00+08:00">2018-01-10</time>
             
 
             
@@ -306,7 +306,9 @@
       
 
       
-        
+        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>Class 可以通过<code>extends</code>关键字实现继承。</p>
+<h3 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 父类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(x, y) &#123;</span><br><span class="line">    <span class="keyword">this</span>.x = x;</span><br><span class="line">    <span class="keyword">this</span>.y = y;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 静态方法，也会被子类继承</span></span><br><span class="line">  <span class="keyword">static</span> hello() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'hello'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 子类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ColorPoint</span> <span class="keyword">extends</span> <span class="title">Point</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 任何子类都必须有 constructor 方法</span></span><br><span class="line">  <span class="comment">/** 默认</span></span><br><span class="line"><span class="comment">    * constructor(...args) &#123;</span></span><br><span class="line"><span class="comment">    *   super(...args);</span></span><br><span class="line"><span class="comment">    * &#125;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">  <span class="keyword">constructor</span>(x, y, color) &#123;</span><br><span class="line">    <span class="comment">// 关于super</span></span><br><span class="line">    <span class="comment">// 1. 子类必须在constructor方法中调用 super 方法，</span></span><br><span class="line">    <span class="comment">// 否则新建实例时会报错。</span></span><br><span class="line">    <span class="comment">// 这是因为子类没有自己的this对象，</span></span><br><span class="line">    <span class="comment">// 而是继承父类的this对象，然后对其进行加工。</span></span><br><span class="line">    <span class="comment">// 2. super，既可以当作函数使用，也可以当作对象使用;</span></span><br><span class="line">    <span class="comment">// 当做函数时，代表 Point 的构造函数，但内部 this 指向子类 ColorPoint，</span></span><br><span class="line">    <span class="comment">// 只能在构造函数中使用，返回的是子类的实例，</span></span><br><span class="line">    <span class="comment">// 相当于 Point.prototype.constructor.call(this);</span></span><br><span class="line">    <span class="comment">// 当做对象时，指向父类的原型对象，</span></span><br><span class="line">    <span class="comment">// 在静态方法中，指向父类；</span></span><br><span class="line">    <span class="comment">// 定义在父类实例上的方法或属性，无法通过 super 调用；</span></span><br><span class="line">    <span class="comment">// ES6规定，通过super调用父类的方法时，父类方法内部的this指向子类。</span></span><br><span class="line">    <span class="comment">// 3. 在静态方法中，super 指向父类，而不是父类的原型对象，</span></span><br><span class="line">    <span class="comment">// 4. 使用super时，必须指定super是作为函数还是对象使用；</span></span><br><span class="line">    <span class="comment">// 5. 由于对象总是继承其他对象的，</span></span><br><span class="line">    <span class="comment">// 所以可以在任意一个对象中，都可以使用super关键字。</span></span><br><span class="line">    <span class="keyword">super</span>(x, y); <span class="comment">// 调用父类的constructor(x, y)</span></span><br><span class="line">    <span class="comment">// 只有调用 super 方法后，才能用 this</span></span><br><span class="line">    <span class="keyword">this</span>.color = color;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  toString() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.color + <span class="string">' '</span> + <span class="keyword">super</span>.toString(); <span class="comment">// 调用父类的toString()</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可以使用这个方法判断，一个类是否继承了另一个类。</span></span><br><span class="line"><span class="built_in">Object</span>.getPrototypeOf(ColorPoint) === Point;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> cp = <span class="keyword">new</span> ColorPoint(<span class="number">25</span>, <span class="number">8</span>, <span class="string">'green'</span>);</span><br><span class="line"></span><br><span class="line">cp <span class="keyword">instanceof</span> ColorPoint; <span class="comment">// true</span></span><br><span class="line">cp <span class="keyword">instanceof</span> Point; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -321,6 +323,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/es6/" rel="tag"># es6</a>
+          
+        </div>
+      
 
       
       
@@ -330,8 +338,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/01/07/fe-frame/" rel="next" title="渐进式框架">
-                <i class="fa fa-chevron-left"></i> 渐进式框架
+              <a href="/2018/01/09/es6-class/" rel="next" title="ES6 Class">
+                <i class="fa fa-chevron-left"></i> ES6 Class
               </a>
             
           </div>
@@ -339,10 +347,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/01/09/es6-class/" rel="prev" title="ES6 Class">
-                ES6 Class <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -394,8 +398,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -456,6 +469,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码分析"><span class="nav-text">代码分析</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
