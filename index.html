@@ -252,6 +252,152 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://imshengli.github.io/2018/01/11/xss-csrf/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangShengli">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ImShengli">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/11/xss-csrf/" itemprop="url">XSS 和 CSRF 基本概念</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-11T20:10:10+08:00">2018-01-11</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h3><p>XSS，跨站脚本攻击，即Cross Site Scripting，<br>为了和CSS不重名，所以取名为XSS。</p>
+<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>XSS攻击者通过畸形的输入，<br>将恶意的js代码插入到了页面中。<br>当其他用户浏览该网页时，恶意的js代码会被执行，从而达到攻击的目的。</p>
+<p>XSS攻击发生的根本原因是<strong>对用户输入的信任</strong>。</p>
+<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><ul>
+<li>反射型XSS；</li>
+<li>存储型XSS；</li>
+<li>DOM-XSS；</li>
+</ul>
+<h4 id="反射型XSS"><a href="#反射型XSS" class="headerlink" title="反射型XSS"></a>反射型XSS</h4><p>反射型XSS，即将用户的输入直接传到后台（不保存)，后台并未经过任何过滤，直接将输入数据返回给前台。</p>
+<p>比如一个页面，其内容就是根据url中查询参数param的值来生成的。那么我们可以请求如下的url：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://example.com/scene/?param=&lt;script&gt;alert(&apos;这是一个XSS攻击&apos;)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>这样当我们将这个url放出去供其他用户访问时，就会出现alert。因为此时页面内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;&lt;script&gt;alert(&apos;这是一个XSS攻击&apos;)&lt;/script&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="存储型XSS"><a href="#存储型XSS" class="headerlink" title="存储型XSS"></a>存储型XSS</h4><p>存储型XSS的攻击过程大致如下：</p>
+<p>M用户的畸形输入<br>-&gt; 后台服务器未经任何处理就存储<br>-&gt; 其他用户T请求数据<br>-&gt; M用户的畸形输入返回给T<br>-&gt; 用户T打开页面，XSS代码运行</p>
+<h4 id="DOM-XSS"><a href="#DOM-XSS" class="headerlink" title="DOM-XSS"></a>DOM-XSS</h4><p>纯粹发生在客户端的XSS攻击。</p>
+<h4 id="如何防范XSS"><a href="#如何防范XSS" class="headerlink" title="如何防范XSS?"></a>如何防范XSS?</h4><p>因此我们要对用户的输入（url参数/post数据等）当做不可信数据来处理。</p>
+<h3 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h3><p>CSRF，跨站请求伪造，即<code>Cross Site Request Forgery</code>。</p>
+<h4 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h4><p>CSRF可以在受害者毫不知情的情况下以受害者名义发送请求。<br>其原理是<strong>借助受害者的cookie来骗取服务器的信任</strong>。</p>
+<p>比如，受害者T登录了某个银行网站，<br>sessionId等信息就会保存在浏览器中。<br>这时候，用户T又打开了CSRF攻击网站，<br>这个网站通过表单自动提交来向银行网站发起一次转账请求，<br>这样，受害者T的银行账户的钱可能就被转走了。</p>
+<p>这个过程成功的关键点在于：<br><strong>用户登录了银行网站，并且session还未过期的时候，打开了CSRF攻击网站</strong>。</p>
+<h4 id="如何防范CSRF"><a href="#如何防范CSRF" class="headerlink" title="如何防范CSRF?"></a>如何防范CSRF?</h4><ul>
+<li>检查HTTP Referer字段</li>
+<li>添加校验TOKEN</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://imshengli.github.io/2018/01/11/json/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -464,7 +610,10 @@
       
         
           
-            <h3 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+            <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>参数默认值；</li>
+</ul>
+<h3 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 默认值</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">log</span>(<span class="params">x, y = <span class="string">'World'</span></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(x, y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
           
         
@@ -1512,7 +1661,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1525,7 +1674,7 @@
                 
                 <div class="site-state-item site-state-tags">
                   <a href="/tags/index.html">
-                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
