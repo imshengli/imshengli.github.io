@@ -252,6 +252,156 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://imshengli.github.io/2018/01/11/es5-object/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangShengli">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ImShengli">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/11/es5-object/" itemprop="url">ES5 Object</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-11T12:48:00+08:00">2018-01-11</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Object-defineProperty"><a href="#Object-defineProperty" class="headerlink" title="Object.defineProperty()"></a><code>Object.defineProperty()</code></h3><p>直接在一个对象上定义一个新属性，或者修改一个对象的现有属性， 并返回这个对象。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.defineProperty(obj, prop, descriptor);</span><br></pre></td></tr></table></figure>
+<p><strong>属性描述符</strong></p>
+<p>对象里目前存在的属性描述符有两种主要形式，描述符是两者中其中的一个：</p>
+<ul>
+<li>数据描述符：一个具有值的属性，该值可能是可写的，也可能不是可写的；</li>
+<li>存取描述符：由getter-setter函数对描述的属性；</li>
+</ul>
+<p>两种描述符可选值：</p>
+<ul>
+<li>configurable：当且仅当该属性的 configurable 为 true 时，该属性描述符才能够被改变，同时该属性也能从对应的对象上被删除。默认为 false。</li>
+<li>enumerable：当且仅当该属性的enumerable为true时，该属性才能够出现在对象的枚举属性中。默认为 false。</li>
+</ul>
+<p>数据描述符同时具有以下可选键值：</p>
+<ul>
+<li>value：该属性对应的值。可以是任何有效的 JavaScript 值（数值，对象，函数等）。默认为 undefined。</li>
+<li>writable：当且仅当该属性的 writable 为 true 时，value才能被赋值运算符改变。默认为 false。</li>
+</ul>
+<p>存取描述符同时具有以下可选键值：</p>
+<ul>
+<li>get：一个给属性提供 getter 的方法，如果没有 getter 则为 undefined。该方法返回值被用作属性值。默认为 undefined。</li>
+<li>set：一个给属性提供 setter 的方法，如果没有 setter 则为 undefined。该方法将接受唯一参数，并将该参数的新值分配给该属性。默认为 undefined。</li>
+</ul>
+<h3 id="Object-create"><a href="#Object-create" class="headerlink" title="Object.create()"></a><code>Object.create()</code></h3><p>会使用指定的原型对象及其属性去创建一个新的对象。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.create(proto[, propertiesObject]);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 参数：proto</span></span><br><span class="line"><span class="comment">// proto: null, 创建一个原型为null的空对象;</span></span><br><span class="line"><span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line"><span class="comment">// 相当于 &#123;&#125;</span></span><br><span class="line"><span class="built_in">Object</span>.create(<span class="built_in">Object</span>.prototype);</span><br><span class="line"><span class="comment">// 如果proto参数不是 null 或一个对象，则抛出一个 TypeError 异常。</span></span><br><span class="line"><span class="built_in">Object</span>.create(proto[, propertiesObject]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 参数：propertiesObject</span></span><br><span class="line"><span class="comment">// 省略了的属性特性默认为false, 所以属性p是不可写, 不可枚举, 不可配置的:</span></span><br><span class="line"><span class="built_in">Object</span>.create(&#123;&#125;, &#123;</span><br><span class="line">  p: &#123;</span><br><span class="line">    value: <span class="number">42</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 创建一个可写的,可枚举的,可配置的属性p</span></span><br><span class="line"><span class="built_in">Object</span>.create(&#123;&#125;, &#123;</span><br><span class="line">  p: &#123;</span><br><span class="line">    value: <span class="number">42</span>,</span><br><span class="line">    writable: <span class="literal">true</span>,</span><br><span class="line">    enumerable: <span class="literal">true</span>,</span><br><span class="line">    configurable: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回值：</span></span><br><span class="line"><span class="comment">// 在指定原型对象上添加新属性后的对象。</span></span><br></pre></td></tr></table></figure>
+<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty" target="_blank" rel="noopener">Object.defineProperty()</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://imshengli.github.io/2018/01/10/es6-object/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -325,6 +475,8 @@
 <li>属性和方法简写；</li>
 <li>表达式属性名和方法名；</li>
 <li>name 属性；</li>
+<li>Object.is();</li>
+<li>Object.assign();</li>
 </ul>
 <h3 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> foo = <span class="string">'bar'</span>;</span><br><span class="line"><span class="keyword">const</span> propKey = <span class="string">'foo'</span>;</span><br><span class="line"><span class="keyword">const</span> key1 = <span class="built_in">Symbol</span>(<span class="string">'description'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  <span class="comment">// 属性的简洁表示法</span></span><br><span class="line">  foo,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 方法的简洁表示法</span></span><br><span class="line">  <span class="comment">// 等同于 hello: function ()...</span></span><br><span class="line">  hello() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Hello!"</span>;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 表达式属性名，在ES6中是允许的</span></span><br><span class="line">  [propKey]: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// 表达式也能定义方法名</span></span><br><span class="line">  [propKey]() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 注：属性名如果是对象，会转换为`[object Object]`</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 方法的`name`属性</span></span><br><span class="line">  <span class="comment">// obj.sayName.name 返回 sayName</span></span><br><span class="line">  sayName() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'hello!'</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// Symbol值：obj[key1].name // "[description]"</span></span><br><span class="line">  <span class="comment">// 返回这个 Symbol 值的描述。</span></span><br><span class="line">  [key1]() &#123;&#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// generate 方法</span></span><br><span class="line">  * gen() &#123;</span><br><span class="line">    <span class="keyword">yield</span> <span class="string">'hello world'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h3 id="Object-is"><a href="#Object-is" class="headerlink" title="Object.is()"></a><code>Object.is()</code></h3><p>用来比较两个值是否严格相等。</p>
@@ -1094,7 +1246,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1107,7 +1259,7 @@
                 
                 <div class="site-state-item site-state-tags">
                   <a href="/tags/index.html">
-                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

@@ -320,6 +320,8 @@
 <li>属性和方法简写；</li>
 <li>表达式属性名和方法名；</li>
 <li>name 属性；</li>
+<li>Object.is();</li>
+<li>Object.assign();</li>
 </ul>
 <h3 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> foo = <span class="string">'bar'</span>;</span><br><span class="line"><span class="keyword">const</span> propKey = <span class="string">'foo'</span>;</span><br><span class="line"><span class="keyword">const</span> key1 = <span class="built_in">Symbol</span>(<span class="string">'description'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  <span class="comment">// 属性的简洁表示法</span></span><br><span class="line">  foo,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 方法的简洁表示法</span></span><br><span class="line">  <span class="comment">// 等同于 hello: function ()...</span></span><br><span class="line">  hello() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Hello!"</span>;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 表达式属性名，在ES6中是允许的</span></span><br><span class="line">  [propKey]: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// 表达式也能定义方法名</span></span><br><span class="line">  [propKey]() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 注：属性名如果是对象，会转换为`[object Object]`</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 方法的`name`属性</span></span><br><span class="line">  <span class="comment">// obj.sayName.name 返回 sayName</span></span><br><span class="line">  sayName() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'hello!'</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// Symbol值：obj[key1].name // "[description]"</span></span><br><span class="line">  <span class="comment">// 返回这个 Symbol 值的描述。</span></span><br><span class="line">  [key1]() &#123;&#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// generate 方法</span></span><br><span class="line">  * gen() &#123;</span><br><span class="line">    <span class="keyword">yield</span> <span class="string">'hello world'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h3 id="Object-is"><a href="#Object-is" class="headerlink" title="Object.is()"></a><code>Object.is()</code></h3><p>用来比较两个值是否严格相等。</p>
@@ -386,6 +388,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/11/es5-object/" rel="prev" title="ES5 Object">
+                ES5 Object <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -462,7 +468,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -475,7 +481,7 @@
                 
                 <div class="site-state-item site-state-tags">
                   <a href="/tags/index.html">
-                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
