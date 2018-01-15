@@ -188,6 +188,20 @@
         </li>
       
         
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+
+            
+              归档
+            
+
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-tags">
           <a href="/tags/" rel="section">
             
@@ -202,14 +216,14 @@
         </li>
       
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
 
             
-              归档
+              分类
             
 
           </a>
@@ -292,6 +306,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -321,7 +357,7 @@
       
         
           
-            <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>正则表达式，<br>是一种表达文本模式的方法。</p>
+            <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>正则表达式，<br>是一种表达文本模式的方法。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 两种方式新建：</span></span><br><span class="line"><span class="comment">// 编译时（代码载入时）新建正则表达式</span></span><br><span class="line"><span class="keyword">var</span> regex = <span class="regexp">/xyz/i</span>;</span><br><span class="line"><span class="comment">// 运行时新建正则表达式</span></span><br><span class="line"><span class="keyword">var</span> regex = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'xyz'</span>, <span class="string">'i'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用方式：</span></span><br><span class="line"><span class="comment">// 正则对象方法</span></span><br><span class="line">regex.test(string);</span><br><span class="line">regex.exec(string);</span><br><span class="line"><span class="comment">// 字符串对象方法 match</span></span><br><span class="line">string.match(regex);</span><br></pre></td></tr></table></figure>
 <p><strong>正则对象的属性和方法</strong></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 属性:</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 修饰符相关，返回一个布尔值，表示对应的修饰符是否设置。</span></span><br><span class="line"><span class="comment">// ignoreCase: 表示是否设置了i修饰符，该属性只读；</span></span><br><span class="line"><span class="comment">// global: 表示是否设置了g修饰符，该属性只读；</span></span><br><span class="line"><span class="comment">// multiline: 表示是否设置了m修饰符，该属性只读；</span></span><br><span class="line"><span class="keyword">var</span> r = <span class="regexp">/abc/igm</span>;</span><br><span class="line">r.ignoreCase <span class="comment">// true</span></span><br><span class="line">r.global <span class="comment">// true</span></span><br><span class="line">r.multiline <span class="comment">// true</span></span><br><span class="line"><span class="comment">// lastIndex: 返回下一次开始搜索的位置。</span></span><br><span class="line"><span class="comment">//            该属性可读写，但是只在设置了g修饰符时有意义；</span></span><br><span class="line"><span class="comment">// source: 返回正则表达式的字符串形式（不包括反斜杠），该属性只读;</span></span><br><span class="line">r.lastIndex <span class="comment">// 0</span></span><br><span class="line">r.source <span class="comment">// "abc"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法:</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// test()</span></span><br><span class="line"><span class="comment">// 参数：用来与正则表达式匹配的字符串，</span></span><br><span class="line"><span class="comment">// 返回一个布尔值，表示当前模式是否能匹配参数字符串；</span></span><br><span class="line">/cat/.test(<span class="string">'cats and dogs'</span>) <span class="comment">// true</span></span><br><span class="line"><span class="comment">// 如果正则表达式带有g修饰符，</span></span><br><span class="line"><span class="comment">// 则每一次test方法都从上一次结束的位置开始向后匹配。</span></span><br><span class="line"><span class="comment">// 但 lastIndex 属性只对同一个正则表达式有效</span></span><br><span class="line"><span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line"><span class="comment">// 会无限循环</span></span><br><span class="line"><span class="keyword">while</span> (<span class="regexp">/a/g</span>.test(<span class="string">'babaa'</span>)) count++;</span><br><span class="line"><span class="comment">// 如果正则模式是一个空字符串，则匹配所有字符串。</span></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">''</span>).test(<span class="string">'abc'</span>); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// exec()</span></span><br><span class="line"><span class="comment">// 返回匹配结果</span></span><br><span class="line"><span class="comment">// 如果发现匹配，就返回一个数组，成员是每一个匹配成功的子字符串，</span></span><br><span class="line"><span class="comment">// 否则返回null。</span></span><br><span class="line"><span class="keyword">var</span> s = <span class="string">'_x_x'</span>;</span><br><span class="line"><span class="keyword">var</span> r1 = <span class="regexp">/x/</span>;</span><br><span class="line"><span class="keyword">var</span> r2 = <span class="regexp">/y/</span>;</span><br><span class="line">r1.exec(s) <span class="comment">// ["x"]</span></span><br><span class="line">r2.exec(s) <span class="comment">// null</span></span><br><span class="line"><span class="comment">// 如果正则表示式包含圆括号（即含有“组匹配”），</span></span><br><span class="line"><span class="comment">// 则返回的数组会包括多个成员。</span></span><br><span class="line"><span class="keyword">var</span> s = <span class="string">'_x_x'</span>;</span><br><span class="line"><span class="keyword">var</span> r = <span class="regexp">/_(x)/</span>;</span><br><span class="line">r.exec(s) <span class="comment">// ["_x", "x"]</span></span><br><span class="line"><span class="comment">// exec 两个属性：</span></span><br><span class="line"><span class="comment">// input：整个原字符串。</span></span><br><span class="line"><span class="comment">// index：整个模式匹配成功的开始位置（从0开始计数）。</span></span><br></pre></td></tr></table></figure>
@@ -1803,6 +1839,15 @@
                 </div>
               
 
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
               
 
               
