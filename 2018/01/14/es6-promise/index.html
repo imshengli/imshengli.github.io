@@ -316,9 +316,9 @@
       
 
       
-        <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li>简介；</li>
-</ul>
+        <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Promise 是一种异步解决方案，<br>在异步流程中，如果想在未来某一时刻执行某项操作，<br>可以通过回调或事件的方式处理，<br>但存在嵌套过深的场景。</p>
+<p>通过Promise，可以通过链式链路进行操作，<br>简化了异步操作的控制；<br>ES6 提供了原生的解决方案。</p>
+<p>如果自己完成一个Promise解决方案，<br>应该如何去处理呢？</p>
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>异步编程的一种解决方案。<br>ES6统一了用法，原生提供了Promise对象。</p>
 <p>特点：</p>
 <ul>
@@ -368,6 +368,10 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 缺点，就是如果f是同步函数，</span></span><br><span class="line"><span class="comment">// 那么它会在本轮事件循环的末尾执行。</span></span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(f);</span><br></pre></td></tr></table></figure>
 <p>改进：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> f = <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'now'</span>);</span><br><span class="line">(</span><br><span class="line">  () =&gt; <span class="keyword">new</span> <span class="built_in">Promise</span>(</span><br><span class="line">    resolve =&gt; resolve(f())</span><br><span class="line">  )</span><br><span class="line">)();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'next'</span>);</span><br><span class="line"><span class="comment">// now</span></span><br><span class="line"><span class="comment">// next</span></span><br></pre></td></tr></table></figure>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="http://es6.ruanyifeng.com/#docs/promise" target="_blank" rel="noopener">ES6 Promise by RuanYifeng</a></li>
+<li><a href="https://div.io/topic/1351" target="_blank" rel="noopener">q.js-Promise库的设计思路</a></li>
+</ul>
 
       
     </div>
@@ -407,6 +411,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/14/js-regexp/" rel="prev" title="JS 正则表达式">
+                JS 正则表达式 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -483,7 +491,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -539,7 +547,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-prototype-then"><span class="nav-text">Promise.prototype.then()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-prototype-catch"><span class="nav-text">Promise.prototype.catch()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-all"><span class="nav-text">Promise.all()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-race"><span class="nav-text">Promise.race()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-resolve"><span class="nav-text">Promise.resolve()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-reject"><span class="nav-text">Promise.reject()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#done"><span class="nav-text">done()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#finally"><span class="nav-text">finally()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-try"><span class="nav-text">Promise.try()</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-prototype-then"><span class="nav-text">Promise.prototype.then()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-prototype-catch"><span class="nav-text">Promise.prototype.catch()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-all"><span class="nav-text">Promise.all()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-race"><span class="nav-text">Promise.race()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-resolve"><span class="nav-text">Promise.resolve()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-reject"><span class="nav-text">Promise.reject()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#done"><span class="nav-text">done()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#finally"><span class="nav-text">finally()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-try"><span class="nav-text">Promise.try()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文档"><span class="nav-text">参考文档</span></a></li></ol></div>
             
 
           </div>

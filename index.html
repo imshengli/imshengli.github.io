@@ -252,6 +252,146 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://imshengli.github.io/2018/01/14/js-regexp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangShengli">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ImShengli">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/14/js-regexp/" itemprop="url">JS 正则表达式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-14T16:54:10+08:00">2018-01-14</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>正则表达式，<br>是一种表达文本模式的方法。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 两种方式新建：</span></span><br><span class="line"><span class="comment">// 编译时（代码载入时）新建正则表达式</span></span><br><span class="line"><span class="keyword">var</span> regex = <span class="regexp">/xyz/i</span>;</span><br><span class="line"><span class="comment">// 运行时新建正则表达式</span></span><br><span class="line"><span class="keyword">var</span> regex = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'xyz'</span>, <span class="string">'i'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用方式：</span></span><br><span class="line"><span class="comment">// 正则对象方法</span></span><br><span class="line">regex.test(string);</span><br><span class="line">regex.exec(string);</span><br><span class="line"><span class="comment">// 字符串对象方法 match</span></span><br><span class="line">string.match(regex);</span><br></pre></td></tr></table></figure>
+<p><strong>正则对象的属性和方法</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 属性:</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 修饰符相关，返回一个布尔值，表示对应的修饰符是否设置。</span></span><br><span class="line"><span class="comment">// ignoreCase: 表示是否设置了i修饰符，该属性只读；</span></span><br><span class="line"><span class="comment">// global: 表示是否设置了g修饰符，该属性只读；</span></span><br><span class="line"><span class="comment">// multiline: 表示是否设置了m修饰符，该属性只读；</span></span><br><span class="line"><span class="keyword">var</span> r = <span class="regexp">/abc/igm</span>;</span><br><span class="line">r.ignoreCase <span class="comment">// true</span></span><br><span class="line">r.global <span class="comment">// true</span></span><br><span class="line">r.multiline <span class="comment">// true</span></span><br><span class="line"><span class="comment">// lastIndex: 返回下一次开始搜索的位置。</span></span><br><span class="line"><span class="comment">//            该属性可读写，但是只在设置了g修饰符时有意义；</span></span><br><span class="line"><span class="comment">// source: 返回正则表达式的字符串形式（不包括反斜杠），该属性只读;</span></span><br><span class="line">r.lastIndex <span class="comment">// 0</span></span><br><span class="line">r.source <span class="comment">// "abc"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法:</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// test()</span></span><br><span class="line"><span class="comment">// 返回一个布尔值，表示当前模式是否能匹配参数字符串；</span></span><br><span class="line">/cat/.test(<span class="string">'cats and dogs'</span>) <span class="comment">// true</span></span><br><span class="line"><span class="comment">// 如果正则表达式带有g修饰符，</span></span><br><span class="line"><span class="comment">// 则每一次test方法都从上一次结束的位置开始向后匹配。</span></span><br><span class="line"><span class="comment">// 但 lastIndex 属性只对同一个正则表达式有效</span></span><br><span class="line"><span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line"><span class="comment">// 会无限循环</span></span><br><span class="line"><span class="keyword">while</span> (<span class="regexp">/a/g</span>.test(<span class="string">'babaa'</span>)) count++;</span><br><span class="line"><span class="comment">// 如果正则模式是一个空字符串，则匹配所有字符串。</span></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">''</span>).test(<span class="string">'abc'</span>); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// exec()</span></span><br><span class="line"><span class="comment">// 返回匹配结果</span></span><br><span class="line"><span class="comment">// 如果发现匹配，就返回一个数组，成员是每一个匹配成功的子字符串，</span></span><br><span class="line"><span class="comment">// 否则返回null。</span></span><br><span class="line"><span class="keyword">var</span> s = <span class="string">'_x_x'</span>;</span><br><span class="line"><span class="keyword">var</span> r1 = <span class="regexp">/x/</span>;</span><br><span class="line"><span class="keyword">var</span> r2 = <span class="regexp">/y/</span>;</span><br><span class="line">r1.exec(s) <span class="comment">// ["x"]</span></span><br><span class="line">r2.exec(s) <span class="comment">// null</span></span><br><span class="line"><span class="comment">// 如果正则表示式包含圆括号（即含有“组匹配”），</span></span><br><span class="line"><span class="comment">// 则返回的数组会包括多个成员。</span></span><br><span class="line"><span class="keyword">var</span> s = <span class="string">'_x_x'</span>;</span><br><span class="line"><span class="keyword">var</span> r = <span class="regexp">/_(x)/</span>;</span><br><span class="line">r.exec(s) <span class="comment">// ["_x", "x"]</span></span><br><span class="line"><span class="comment">// exec 两个属性：</span></span><br><span class="line"><span class="comment">// input：整个原字符串。</span></span><br><span class="line"><span class="comment">// index：整个模式匹配成功的开始位置（从0开始计数）。</span></span><br></pre></td></tr></table></figure>
+<h2 id="匹配规则"><a href="#匹配规则" class="headerlink" title="匹配规则"></a>匹配规则</h2><p><strong>字面量字符和元字符</strong></p>
+<p>字面量字符：某个字符只表示它字面的含义，例如 a，b；<br>元字符：有特殊含义的字符；</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 点字符（.)</span></span><br><span class="line"><span class="comment">// 点字符（.）匹配除</span></span><br><span class="line"><span class="comment">//    回车（\r）、</span></span><br><span class="line"><span class="comment">//    换行(\n) 、</span></span><br><span class="line"><span class="comment">//    行分隔符（\u2028）、</span></span><br><span class="line"><span class="comment">//    段分隔符（\u2029）以外的所有字符。</span></span><br><span class="line">/c.t/ <span class="comment">// cat / c2t</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 位置字符</span></span><br><span class="line"><span class="comment">// 用来提示字符所处的位置</span></span><br><span class="line"><span class="comment">// ^表示字符串的开始位置</span></span><br><span class="line"><span class="comment">// $表示字符串的结束位置</span></span><br><span class="line"><span class="comment">// test必须出现在开始位置</span></span><br><span class="line">/^test/.test(<span class="string">'test123'</span>) <span class="comment">// true</span></span><br><span class="line">/test$/.test(<span class="string">'new test'</span>) <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 选择符（|）</span></span><br><span class="line"><span class="comment">// 表示“或关系”（OR），即cat|dog表示匹配cat或dog。</span></span><br><span class="line">/<span class="number">11</span>|<span class="number">22</span>/.test(<span class="string">'911'</span>) <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// [Todos]</span></span><br><span class="line"><span class="comment">// \\、\*、+、?、()、[]、&#123;&#125;</span></span><br></pre></td></tr></table></figure>
+<p><strong>转义符</strong></p>
+<p>反斜杠：<code>\+</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 共12个字符</span></span><br><span class="line"><span class="comment">// ^、.、[、$、(、)、|、*、+、?、&#123;和\\</span></span><br><span class="line">/<span class="number">1</span>\+<span class="number">1</span>/.test(<span class="string">'1+1'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果使用RegExp方法生成正则对象，</span></span><br><span class="line"><span class="comment">// 转义需要使用两个斜杠;</span></span><br><span class="line"><span class="comment">// 因为字符串内部会先转义一次，</span></span><br><span class="line"><span class="comment">// 在字符串内部，反斜杠也是转义字符.</span></span><br><span class="line">(<span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'1\\+1'</span>)).test(<span class="string">'1+1'</span>) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p><strong>特殊字符</strong></p>
+<p>对一些不能打印的特殊字符，提供了表达方法。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">\cX 表示Ctrl-[X]，其中的X是A-Z之中任一个英文字母，用来匹配控制字符。</span><br><span class="line">[\b] 匹配退格键(U+<span class="number">0008</span>)，不要与\b混淆。</span><br><span class="line">\n 匹配换行键。</span><br><span class="line">\r 匹配回车键。</span><br><span class="line">\t 匹配制表符tab（U+<span class="number">0009</span>）。</span><br><span class="line">\v 匹配垂直制表符（U+<span class="number">000</span>B）。</span><br><span class="line">\f 匹配换页符（U+<span class="number">000</span>C）。</span><br><span class="line">\<span class="number">0</span> 匹配<span class="literal">null</span>字符（U+<span class="number">0000</span>）。</span><br><span class="line">\xhh 匹配一个以两位十六进制数（\x00-\xFF）表示的字符。</span><br><span class="line">\uhhhh 匹配一个以四位十六进制数（\u0000-\uFFFF）表示的unicode字符。</span><br></pre></td></tr></table></figure>
+<p><strong>字符类</strong></p>
+<p>表示有一系列字符可供选择，只要匹配其中一个就可以了。<br>比如：[xyz] 表示x、y、z之中任选一个匹配。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 脱字符（^）</span></span><br><span class="line"><span class="comment">// [^xyz]表示除了x、y、z之外都可以匹配。</span></span><br><span class="line">/[^abc]/.test(<span class="string">'hello world'</span>) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="http://javascript.ruanyifeng.com/stdlib/regexp.html" target="_blank" rel="noopener">RegExp对象</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://imshengli.github.io/2018/01/14/es6-promise/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -321,9 +461,9 @@
       
         
           
-            <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li>简介；</li>
-</ul>
+            <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Promise 是一种异步解决方案，<br>在异步流程中，如果想在未来某一时刻执行某项操作，<br>可以通过回调或事件的方式处理，<br>但存在嵌套过深的场景。</p>
+<p>通过Promise，可以通过链式链路进行操作，<br>简化了异步操作的控制；<br>ES6 提供了原生的解决方案。</p>
+<p>如果自己完成一个Promise解决方案，<br>应该如何去处理呢？</p>
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>异步编程的一种解决方案。<br>ES6统一了用法，原生提供了Promise对象。</p>
 <p>特点：</p>
 <ul>
@@ -373,6 +513,10 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 缺点，就是如果f是同步函数，</span></span><br><span class="line"><span class="comment">// 那么它会在本轮事件循环的末尾执行。</span></span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(f);</span><br></pre></td></tr></table></figure>
 <p>改进：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> f = <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'now'</span>);</span><br><span class="line">(</span><br><span class="line">  () =&gt; <span class="keyword">new</span> <span class="built_in">Promise</span>(</span><br><span class="line">    resolve =&gt; resolve(f())</span><br><span class="line">  )</span><br><span class="line">)();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'next'</span>);</span><br><span class="line"><span class="comment">// now</span></span><br><span class="line"><span class="comment">// next</span></span><br></pre></td></tr></table></figure>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="http://es6.ruanyifeng.com/#docs/promise" target="_blank" rel="noopener">ES6 Promise by RuanYifeng</a></li>
+<li><a href="https://div.io/topic/1351" target="_blank" rel="noopener">q.js-Promise库的设计思路</a></li>
+</ul>
 
           
         
@@ -1566,149 +1710,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-    <div class="reading-progress-bar"></div>
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://imshengli.github.io/2018/01/07/fe-frame/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZhangShengli">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ImShengli">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/07/fe-frame/" itemprop="url">渐进式框架</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-07T11:39:00+08:00">2018-01-07</time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在 Vue 的官方文档中，有这么的一句话：</p>
-<blockquote>
-<p>Vue 是一套用于构建用户界面的渐进式框架。</p>
-</blockquote>
-<p>那什么是渐进式框架呢？</p>
-<p>在说明这个问题之前，先了解一下前端框架。</p>
-<h3 id="前端框架"><a href="#前端框架" class="headerlink" title="前端框架"></a>前端框架</h3><blockquote>
-<p>框架的存在是为了帮助我们应对复杂度。</p>
-</blockquote>
-<p>但框架自身在存在复杂度，<br>这里就抽象出一个问题，就是要做的应用的复杂度与所使用的框架的复杂度的对比。<br>进一步说，是所要解决的问题的内在复杂度，与所使用的工具的复杂度进行对比。</p>
-<blockquote>
-<p>Pick the right tool for the job.</p>
-</blockquote>
-<h3 id="渐进式框架"><a href="#渐进式框架" class="headerlink" title="渐进式框架"></a>渐进式框架</h3><p>在知乎徐飞的回答中，强调：“渐进式代表的是主张最少”。</p>
-<blockquote>
-<p>主张是框架对使用者的要求，它会影响在业务开发中的使用方式。<br>比如 Angular 是强主张的，使用时需要考虑是否和其他东西集成，<br>而 React 主张的是“函数式编程”的理念，它是一种软性侵入；<br>在 React 中，需要知道什么是副作用，什么是纯函数，如何隔离副作用。<br>徐飞说，不建议在中后台系统中使用 React，因为大多数人不知道如何把业务映射到函数式的理念中去，<br>还有，JS本身有太多特性和纯函数式的主张不一致；</p>
-<p>Vue是渐进式的，没有强主张，作者推荐使用 Vue 的原因是：<br>要替换原系统中的那部分，直接使用 Vue 中的那部分功能就好了。</p>
-</blockquote>
-<h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><ul>
-<li><a href="https://www.zhihu.com/question/51907207/answer/136559185" target="_blank" rel="noopener">Vue2.0 中，“渐进式框架”和“自底向上增量开发的设计”这两个概念是什么？ - 徐飞的回答 - 知乎</a></li>
-<li><a href="http://mp.weixin.qq.com/s?__biz=MzIwNjQwMzUwMQ==&amp;mid=2247484393&amp;idx=1&amp;sn=142b8e37dfc94de07be211607e468030&amp;chksm=9723612ba054e83db6622a891287af119bb63708f1b7a09aed9149d846c9428ad5abbb822294&amp;mpshare=1&amp;scene=1&amp;srcid=1026oUz3521V74ua0uwTcIWa&amp;from=groupmessage&amp;isappinstalled=0#wechat_redirect&amp;utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="noopener">Vue作者尤雨溪：Vue 2.0，渐进式前端解决方案</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1759,7 +1760,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
