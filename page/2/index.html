@@ -74,13 +74,13 @@
 
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="所有标签">
-<meta property="og:url" content="https://imshengli.github.io/tags/index.html">
+<meta property="og:title" content="分类">
+<meta property="og:url" content="https://imshengli.github.io/categories/index.html">
 <meta property="og:site_name" content="ImShengli">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-10T05:57:23.234Z">
+<meta property="og:updated_time" content="2018-01-15T05:34:54.421Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="所有标签">
+<meta name="twitter:title" content="分类">
 
 
 
@@ -112,7 +112,7 @@
 
 
 
-  <link rel="canonical" href="https://imshengli.github.io/tags/"/>
+  <link rel="canonical" href="https://imshengli.github.io/categories/"/>
 
 
 
@@ -248,6 +248,486 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://imshengli.github.io/2018/01/11/xss-csrf/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangShengli">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ImShengli">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/11/xss-csrf/" itemprop="url">XSS 和 CSRF 基本概念</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-11T20:10:10+08:00">2018-01-11</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h3><p>XSS，跨站脚本攻击，即Cross Site Scripting，<br>为了和CSS不重名，所以取名为XSS。</p>
+<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>XSS攻击者通过畸形的输入，<br>将恶意的js代码插入到了页面中。<br>当其他用户浏览该网页时，恶意的js代码会被执行，从而达到攻击的目的。</p>
+<p>XSS攻击发生的根本原因是<strong>对用户输入的信任</strong>。</p>
+<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><ul>
+<li>反射型XSS；</li>
+<li>存储型XSS；</li>
+<li>DOM-XSS；</li>
+</ul>
+<h4 id="反射型XSS"><a href="#反射型XSS" class="headerlink" title="反射型XSS"></a>反射型XSS</h4><p>反射型XSS，即将用户的输入直接传到后台（不保存)，后台并未经过任何过滤，直接将输入数据返回给前台。</p>
+<p>比如一个页面，其内容就是根据url中查询参数param的值来生成的。那么我们可以请求如下的url：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://example.com/scene/?param=&lt;script&gt;alert(&apos;这是一个XSS攻击&apos;)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>这样当我们将这个url放出去供其他用户访问时，就会出现alert。因为此时页面内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;&lt;script&gt;alert(&apos;这是一个XSS攻击&apos;)&lt;/script&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="存储型XSS"><a href="#存储型XSS" class="headerlink" title="存储型XSS"></a>存储型XSS</h4><p>存储型XSS的攻击过程大致如下：</p>
+<p>M用户的畸形输入<br>-&gt; 后台服务器未经任何处理就存储<br>-&gt; 其他用户T请求数据<br>-&gt; M用户的畸形输入返回给T<br>-&gt; 用户T打开页面，XSS代码运行</p>
+<h4 id="DOM-XSS"><a href="#DOM-XSS" class="headerlink" title="DOM-XSS"></a>DOM-XSS</h4><p>纯粹发生在客户端的XSS攻击。</p>
+<h4 id="如何防范XSS"><a href="#如何防范XSS" class="headerlink" title="如何防范XSS?"></a>如何防范XSS?</h4><p>因此我们要对用户的输入（url参数/post数据等）当做不可信数据来处理。</p>
+<h3 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h3><p>CSRF，跨站请求伪造，即<code>Cross Site Request Forgery</code>。</p>
+<h4 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h4><p>CSRF可以在受害者毫不知情的情况下以受害者名义发送请求。<br>其原理是<strong>借助受害者的cookie来骗取服务器的信任</strong>。</p>
+<p>比如，受害者T登录了某个银行网站，<br>sessionId等信息就会保存在浏览器中。<br>这时候，用户T又打开了CSRF攻击网站，<br>这个网站通过表单自动提交来向银行网站发起一次转账请求，<br>这样，受害者T的银行账户的钱可能就被转走了。</p>
+<p>这个过程成功的关键点在于：<br><strong>用户登录了银行网站，并且session还未过期的时候，打开了CSRF攻击网站</strong>。</p>
+<h4 id="如何防范CSRF"><a href="#如何防范CSRF" class="headerlink" title="如何防范CSRF?"></a>如何防范CSRF?</h4><ul>
+<li>检查HTTP Referer字段</li>
+<li>添加校验TOKEN</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://imshengli.github.io/2018/01/11/json/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangShengli">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ImShengli">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/11/json/" itemprop="url">JSON</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-11T17:55:10+08:00">2018-01-11</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>JSON 是一种语法，用来序列化对象、数组、数值、字符串、布尔值和 null 。</p>
+<h3 id="JSON-stringify"><a href="#JSON-stringify" class="headerlink" title="JSON.stringify()"></a><code>JSON.stringify()</code></h3><p>将一个 JavaScript 值(对象或者数组)转换为一个 JSON 字符串，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// replacer</span></span><br><span class="line"><span class="comment">// 如果该参数是一个函数，则在序列化过程中，</span></span><br><span class="line"><span class="comment">// 被序列化的值的每个属性都会经过该函数的转换和处理；</span></span><br><span class="line"><span class="comment">// 如果该参数是一个数组，则只有包含在这个数组中的属性名</span></span><br><span class="line"><span class="comment">// 才会被序列化到最终的 JSON 字符串中；</span></span><br><span class="line"><span class="comment">// 如果该参数为null或者未提供，则对象所有的属性都会被序列化；</span></span><br><span class="line"><span class="comment">// space</span></span><br><span class="line"><span class="comment">// 指定缩进用的空白字符串，用于美化输出（pretty-print）；</span></span><br><span class="line"><span class="built_in">JSON</span>.stringify(value[, replacer [, space]]);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>非数组对象的属性不能保证以特定的顺序出现在序列化后的字符串中。</li>
+<li>布尔值、数字、字符串的包装对象在序列化过程中会自动转换成对应的原始值。</li>
+<li>undefined、任意的函数以及 symbol 值，在序列化过程中会被忽略（出现在非数组对象的属性值中时）或者被转换成 null（出现在数组中时）。</li>
+<li>所有以 symbol 为属性键的属性都会被完全忽略掉，即便 replacer 参数中强制指定包含了它们。</li>
+<li>不可枚举的属性会被忽略；</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">JSON</span>.stringify(&#123;&#125;);                        <span class="comment">// '&#123;&#125;'</span></span><br><span class="line"><span class="built_in">JSON</span>.stringify(<span class="literal">true</span>);                      <span class="comment">// 'true'</span></span><br><span class="line"><span class="built_in">JSON</span>.stringify(<span class="string">"foo"</span>);                     <span class="comment">// '"foo"'</span></span><br><span class="line"><span class="built_in">JSON</span>.stringify([<span class="number">1</span>, <span class="string">"false"</span>, <span class="literal">false</span>]);       <span class="comment">// '[1,"false",false]'</span></span><br><span class="line"><span class="built_in">JSON</span>.stringify(&#123; <span class="attr">x</span>: <span class="number">5</span> &#125;);                  <span class="comment">// '&#123;"x":5&#125;'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">JSON</span>.stringify(&#123;<span class="attr">x</span>: <span class="number">5</span>, <span class="attr">y</span>: <span class="number">6</span>&#125;);</span><br><span class="line"><span class="comment">// "&#123;"x":5,"y":6&#125;"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">JSON</span>.stringify([<span class="keyword">new</span> <span class="built_in">Number</span>(<span class="number">1</span>), <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">"false"</span>), <span class="keyword">new</span> <span class="built_in">Boolean</span>(<span class="literal">false</span>)]);</span><br><span class="line"><span class="comment">// '[1,"false",false]'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">JSON</span>.stringify(&#123;<span class="attr">x</span>: <span class="literal">undefined</span>, <span class="attr">y</span>: <span class="built_in">Object</span>, <span class="attr">z</span>: <span class="built_in">Symbol</span>(<span class="string">""</span>)&#125;);</span><br><span class="line"><span class="comment">// '&#123;&#125;'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">JSON</span>.stringify([<span class="literal">undefined</span>, <span class="built_in">Object</span>, <span class="built_in">Symbol</span>(<span class="string">""</span>)]);</span><br><span class="line"><span class="comment">// '[null,null,null]'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">JSON</span>.stringify(&#123;[<span class="built_in">Symbol</span>(<span class="string">"foo"</span>)]: <span class="string">"foo"</span>&#125;);</span><br><span class="line"><span class="comment">// '&#123;&#125;'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">JSON</span>.stringify(&#123;[<span class="built_in">Symbol</span>.for(<span class="string">"foo"</span>)]: <span class="string">"foo"</span>&#125;, [<span class="built_in">Symbol</span>.for(<span class="string">"foo"</span>)]);</span><br><span class="line"><span class="comment">// '&#123;&#125;'</span></span><br></pre></td></tr></table></figure>
+<p><strong>replacer</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">replacer</span>(<span class="params">key, value</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> value === <span class="string">"string"</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">undefined</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  foundation: <span class="string">"Mozilla"</span>,</span><br><span class="line">  model: <span class="string">"box"</span>,</span><br><span class="line">  week: <span class="number">45</span>,</span><br><span class="line">  transport: <span class="string">"car"</span>,</span><br><span class="line">  month: <span class="number">7</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> jsonString = <span class="built_in">JSON</span>.stringify(foo, replacer);</span><br><span class="line"><span class="comment">// &#123;"week":45,"month":7&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">JSON</span>.stringify(foo, [<span class="string">'week'</span>, <span class="string">'month'</span>]);</span><br><span class="line"><span class="comment">// '&#123;"week":45,"month":7&#125;', 只保留“week”和“month”属性值。</span></span><br></pre></td></tr></table></figure>
+<p><strong>toJSON 方法</strong></p>
+<p>如果一个被序列化的对象拥有 toJSON 方法，<br>那么该 toJSON 方法就会覆盖该对象默认的序列化行为：<br>不是那个对象被序列化，<br>而是调用 toJSON 方法后的返回值会被序列化，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  foo: <span class="string">'foo'</span>,</span><br><span class="line">  toJSON: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'bar'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">JSON</span>.stringify(obj);      <span class="comment">// '"bar"'</span></span><br><span class="line"><span class="built_in">JSON</span>.stringify(&#123;<span class="attr">x</span>: obj&#125;); <span class="comment">// '&#123;"x":"bar"&#125;'</span></span><br></pre></td></tr></table></figure>
+<h3 id="JSON-parse"><a href="#JSON-parse" class="headerlink" title="JSON.parse()"></a><code>JSON.parse()</code></h3><p>用来解析JSON字符串，构造由字符串描述的JavaScript值或对象。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// reviver</span></span><br><span class="line"><span class="comment">// 如果是一个函数，则规定了原始值如何被解析改造，在被返回之前。</span></span><br><span class="line"><span class="built_in">JSON</span>.parse(text[, reviver])</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">JSON</span>.parse(<span class="string">'&#123;"p": 5&#125;'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">k, v</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(k === <span class="string">''</span>) <span class="keyword">return</span> v;     <span class="comment">// 如果到了最顶层，则直接返回属性值，</span></span><br><span class="line">    <span class="keyword">return</span> v * <span class="number">2</span>;              <span class="comment">// 否则将属性值变为原来的 2 倍。</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify" target="_blank" rel="noopener">MDN JSON.stringify()</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://imshengli.github.io/2018/01/11/es6-function/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangShengli">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ImShengli">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/11/es6-function/" itemprop="url">ES6 Function</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-11T15:48:00+08:00">2018-01-11</time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>参数默认值；</li>
+<li>rest 参数；</li>
+<li>name 属性;</li>
+<li>严格模式;</li>
+<li>箭头函数；</li>
+<li>尾调用优化；</li>
+</ul>
+<h3 id="默认值"><a href="#默认值" class="headerlink" title="默认值"></a>默认值</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 0. 是 undefined 才会触发默认值</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">log</span>(<span class="params">x, y = <span class="string">'World'</span></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(x, y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. 默认值是惰性求值</span></span><br><span class="line"><span class="keyword">let</span> x = <span class="number">99</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">p = x + <span class="number">1</span></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(p);</span><br><span class="line">&#125;</span><br><span class="line">foo(); <span class="comment">// 100</span></span><br><span class="line">x = <span class="number">100</span>;</span><br><span class="line">foo(); <span class="comment">// 101</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 与解构赋值默认值结合使用</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">&#123;x, y = <span class="number">5</span>&#125;</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(x, y);</span><br><span class="line">&#125;</span><br><span class="line">foo(&#123;&#125;); <span class="comment">// undefined 5</span></span><br><span class="line">foo(&#123;<span class="attr">x</span>: <span class="number">1</span>&#125;); <span class="comment">// 1 5</span></span><br><span class="line">foo(&#123;<span class="attr">x</span>: <span class="number">1</span>, <span class="attr">y</span>: <span class="number">2</span>&#125;); <span class="comment">// 1 2</span></span><br><span class="line">foo(); <span class="comment">// TypeError: Cannot read property 'x' of undefined</span></span><br><span class="line"><span class="comment">// 通过提供默认值解决</span></span><br><span class="line"><span class="comment">// function foo(&#123;x, y = 5&#125; = &#123;&#125;) &#123;</span></span><br><span class="line"><span class="comment">//   console.log(x, y);</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 参数默认值的位置</span></span><br><span class="line"><span class="comment">// 通常情况下，定义了默认值的参数，应该是函数的尾参数。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. length 属性</span></span><br><span class="line"><span class="comment">// length 含义：该函数预期传入的参数个数。</span></span><br><span class="line"><span class="comment">// 指定了默认值以后，函数的length属性，</span></span><br><span class="line"><span class="comment">// 将返回没有指定默认值的参数个数。</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">a</span>) </span>&#123;&#125;).length; <span class="comment">// 1</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">a = <span class="number">5</span></span>) </span>&#123;&#125;).length; <span class="comment">// 0</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">a, b, c = <span class="number">5</span></span>) </span>&#123;&#125;).length; <span class="comment">// 2</span></span><br><span class="line"><span class="comment">// 如果设置了默认值的参数不是尾参数，</span></span><br><span class="line"><span class="comment">// 那么length属性也不再计入后面的参数了。</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">a = <span class="number">0</span>, b, c</span>) </span>&#123;&#125;).length; <span class="comment">// 0</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">a, b = <span class="number">1</span>, c</span>) </span>&#123;&#125;).length; <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 5. 作用域</span></span><br><span class="line"><span class="comment">// 一旦设置了参数的默认值，函数进行声明初始化时，</span></span><br><span class="line"><span class="comment">// 参数会形成一个单独的作用域（context）,</span></span><br><span class="line"><span class="comment">// 等到初始化结束，这个作用域就会消失。</span></span><br><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">x, y = x</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(y);</span><br><span class="line">&#125;</span><br><span class="line">f(<span class="number">2</span>); <span class="comment">// 2</span></span><br><span class="line"><span class="comment">// 参数的默认值是一个函数，该函数的作用域也遵守这个规则。</span></span><br><span class="line"><span class="keyword">let</span> foo = <span class="string">'outer'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">func = (</span>) =&gt; <span class="title">foo</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> foo = <span class="string">'inner'</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(func());</span><br><span class="line">&#125;</span><br><span class="line">bar(); <span class="comment">// outer</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 6. 应用</span></span><br><span class="line"><span class="comment">// 利用参数默认值，可以指定某一个参数不得省略</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throwIfMissing</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Missing parameter'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">mustBeProvided = throwIfMissing(</span>)) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> mustBeProvided;</span><br><span class="line">&#125;</span><br><span class="line">foo(); <span class="comment">// Error: Missing parameter</span></span><br></pre></td></tr></table></figure>
+<h3 id="rest-参数"><a href="#rest-参数" class="headerlink" title="rest 参数"></a>rest 参数</h3><p>ES6 引入 rest 参数（形式为<code>...变量名</code>），<br>用于获取函数的多余参数。<br>rest 参数搭配的变量是一个数组，该变量将多余的参数放入数组中。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// arguments变量的写法</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sortNumbers</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>).sort();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// rest参数的写法</span></span><br><span class="line"><span class="keyword">const</span> sortNumbers = <span class="function">(<span class="params">...numbers</span>) =&gt;</span> numbers.sort();</span><br><span class="line"></span><br><span class="line"><span class="comment">// rest 参数之后不能再有其他参数（即只能是最后一个参数）</span></span><br><span class="line"><span class="comment">// 报错</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">a, ...b, c</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 函数的length属性，不包括 rest 参数。</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">a</span>) </span>&#123;&#125;).length;  <span class="comment">// 1</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">...a</span>) </span>&#123;&#125;).length;  <span class="comment">// 0</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">a, ...b</span>) </span>&#123;&#125;).length;  <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<h3 id="严格模式"><a href="#严格模式" class="headerlink" title="严格模式"></a>严格模式</h3><p>从 ES5 开始，函数内部可以使用<code>use strict</code>设定为严格模式。</p>
+<p>ES2016 做了一点修改，<br>规定只要函数参数使用了<br>默认值、解构赋值、或者扩展运算符，<br>那么函数内部就<strong>不能显式设定为严格模式</strong>，<br>否则会报错。</p>
+<p>这样规定的原因是，<br>函数内部的严格模式，同时适用于函数体和函数参数。<br>但是，函数执行的时候，先执行函数参数，然后再执行函数体。<br>这样就有一个不合理的地方，只有从函数体之中，<br>才能知道参数是否应该以严格模式执行，<br>但是参数却应该先于函数体执行。</p>
+<p>两种方法可以规避这种限制。</p>
+<ul>
+<li>设定全局性的严格模式;</li>
+<li>把函数包在一个无参数的立即执行函数里面;</li>
+</ul>
+<h3 id="name-属性"><a href="#name-属性" class="headerlink" title="name 属性"></a>name 属性</h3><p>返回该函数的函数名。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果将一个匿名函数赋值给一个变量，</span></span><br><span class="line"><span class="comment">// ES5 的name属性，会返回空字符串，</span></span><br><span class="line"><span class="comment">// 而 ES6 的name属性会返回实际的函数名。</span></span><br><span class="line"><span class="keyword">var</span> f = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line"><span class="comment">// ES5</span></span><br><span class="line">f.name; <span class="comment">// ""</span></span><br><span class="line"><span class="comment">// ES6</span></span><br><span class="line">f.name; <span class="comment">// "f"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Function构造函数返回的函数实例，name属性的值为anonymous。</span></span><br><span class="line">(<span class="keyword">new</span> <span class="built_in">Function</span>).name; <span class="comment">// "anonymous"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// bind返回的函数，name属性值会加上bound前缀。</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">foo.bind(&#123;&#125;).name; <span class="comment">// "bound foo"</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;).bind(&#123;&#125;).name; <span class="comment">// "bound "</span></span><br></pre></td></tr></table></figure>
+<h3 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基本用法</span></span><br><span class="line"><span class="keyword">var</span> f = <span class="function"><span class="params">v</span> =&gt;</span> v;</span><br><span class="line"><span class="comment">// 等同于</span></span><br><span class="line"><span class="keyword">var</span> f = <span class="function"><span class="keyword">function</span>(<span class="params">v</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> v;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果箭头函数不需要参数或需要多个参数，</span></span><br><span class="line"><span class="comment">// 就使用一个圆括号代表参数部分。</span></span><br><span class="line"><span class="keyword">var</span> f = <span class="function"><span class="params">()</span> =&gt;</span> <span class="number">5</span>;</span><br><span class="line"><span class="keyword">var</span> sum = <span class="function">(<span class="params">num1, num2</span>) =&gt;</span> num1 + num2;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果箭头函数的代码块部分多于一条语句，</span></span><br><span class="line"><span class="comment">// 就要使用大括号将它们括起来，</span></span><br><span class="line"><span class="comment">// 并且使用return语句返回。</span></span><br><span class="line"><span class="keyword">var</span> sum = <span class="function">(<span class="params">num1, num2</span>) =&gt;</span> &#123;</span><br><span class="line">  num1 += num2;</span><br><span class="line">  <span class="keyword">return</span> num1 + num2;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>注意点：</p>
+<ul>
+<li>函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。</li>
+<li>不可以当作构造函数，否则会抛出一个错误。</li>
+<li>不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用 rest 参数代替。</li>
+<li>不可以使用yield命令，因此箭头函数不能用作 Generator 函数；</li>
+</ul>
+<p><strong>this 对象</strong></p>
+<p>箭头函数没有自己的this，导致内部的this就是外层代码块的this。<br>正是因为它没有this，所以也就不能用作构造函数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'id:'</span>, <span class="keyword">this</span>.id);</span><br><span class="line">  &#125;, <span class="number">100</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> id = <span class="number">21</span>;</span><br><span class="line">foo.call(&#123; <span class="attr">id</span>: <span class="number">42</span> &#125;);</span><br><span class="line"><span class="comment">// id: 42</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ES6</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'id:'</span>, <span class="keyword">this</span>.id);</span><br><span class="line">  &#125;, <span class="number">100</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ES5</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> _this = <span class="keyword">this</span>;</span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'id:'</span>, _this.id);</span><br><span class="line">  &#125;, <span class="number">100</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以下三个变量在箭头函数之中也是不存在的，<br>指向外层函数的对应变量：</p>
+<ul>
+<li>arguments;</li>
+<li>super;</li>
+<li>new.target;</li>
+</ul>
+<p>由于箭头函数没有自己的this，<br>所以当然也就不能用 <code>call()</code>、<code>apply()</code>、<code>bind()</code><br>这些方法去改变this的指向。</p>
+<p><strong>嵌套箭头函数</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">y</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> y + x;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> add = <span class="function"><span class="params">x</span> =&gt;</span> y =&gt; x + y;</span><br><span class="line">add(<span class="number">1</span>)(<span class="number">2</span>); <span class="comment">// 3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> has = <span class="function"><span class="params">p</span> =&gt;</span> o =&gt; o.hasOwnProperty(p);</span><br><span class="line"><span class="keyword">const</span> users = [</span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">'Qian'</span>, <span class="attr">age</span>: <span class="number">27</span>, <span class="attr">pets</span> : [<span class="string">'Bao'</span>] &#125;,</span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">'Zeynep'</span>, <span class="attr">age</span>: <span class="number">19</span>, <span class="attr">pets</span> : [<span class="string">'Civelek'</span>] &#125;,</span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">'Yael'</span>, <span class="attr">age</span>: <span class="number">52</span> &#125;</span><br><span class="line">];</span><br><span class="line"><span class="keyword">const</span> result = users.filter(has(<span class="string">'pets'</span>));</span><br></pre></td></tr></table></figure>
+<h3 id="尾调用优化"><a href="#尾调用优化" class="headerlink" title="尾调用优化"></a>尾调用优化</h3><p><strong>尾调用（Tail Call）</strong></p>
+<p>指某个函数的最后一步是调用另一个函数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> g(x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>尾调用优化”（Tail call optimization）</strong></p>
+<p>只保留内层函数的调用帧。</p>
+<p>只有不再用到外层函数的内部变量，<br>内层函数的调用帧才会取代外层函数的调用帧，<br>否则就无法进行“尾调用优化”。</p>
+<p>[Todos]</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -457,6 +937,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -611,6 +1113,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -756,6 +1280,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -1265,7 +1811,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
