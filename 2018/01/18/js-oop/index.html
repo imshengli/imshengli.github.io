@@ -62,7 +62,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="js," />
 
 
 
@@ -73,14 +73,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="https://imshengli.github.io/categories/index.html">
+<meta name="description" content="概述Redux 适用场景：多交互、多数据源。  从组件角度看：某个组件的状态，需要共享；某个状态需要在任何地方都可以拿到；一个组件需要改变全局状态；一个组件需要改变另一个组件的状态；  设计思想：  1）Web 应用是一个状态机，视图与状态是一一对应的。2）所有的状态，保存在一个对象里面。  12345678910111213141516171819202122232425262728293031">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redux">
+<meta property="og:url" content="https://imshengli.github.io/2018/01/24/redux/index.html">
 <meta property="og:site_name" content="ImShengli">
+<meta property="og:description" content="概述Redux 适用场景：多交互、多数据源。  从组件角度看：某个组件的状态，需要共享；某个状态需要在任何地方都可以拿到；一个组件需要改变全局状态；一个组件需要改变另一个组件的状态；  设计思想：  1）Web 应用是一个状态机，视图与状态是一一对应的。2）所有的状态，保存在一个对象里面。  12345678910111213141516171819202122232425262728293031">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-15T05:34:54.421Z">
+<meta property="og:updated_time" content="2018-01-24T01:35:48.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="分类">
+<meta name="twitter:title" content="Redux">
+<meta name="twitter:description" content="概述Redux 适用场景：多交互、多数据源。  从组件角度看：某个组件的状态，需要共享；某个状态需要在任何地方都可以拿到；一个组件需要改变全局状态；一个组件需要改变另一个组件的状态；  设计思想：  1）Web 应用是一个状态机，视图与状态是一一对应的。2）所有的状态，保存在一个对象里面。  12345678910111213141516171819202122232425262728293031">
 
 
 
@@ -112,7 +116,7 @@
 
 
 
-  <link rel="canonical" href="https://imshengli.github.io/categories/"/>
+  <link rel="canonical" href="https://imshengli.github.io/2018/01/24/redux/"/>
 
 
 
@@ -389,7 +393,7 @@
 <p>对象实例的hasOwnProperty方法返回一个布尔值，<br>用于判断某个属性定义在对象自身，还是定义在原型链上。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Date</span>.hasOwnProperty(<span class="string">'length'</span>)</span><br><span class="line"><span class="comment">// true</span></span><br><span class="line"><span class="built_in">Date</span>.hasOwnProperty(<span class="string">'toString'</span>)</span><br><span class="line"><span class="comment">// false</span></span><br></pre></td></tr></table></figure>
 <p><strong>in 运算符和 for…in 循环</strong></p>
-<p>in运算符返回一个布尔值，表示一个对象是否具有某个属性。<br>它不区分该属性是对象自身的属性，还是继承的属性。</p>
+<p>in运算符返回一个布尔值，表示一个对象是否具有某个属性。<br>属性包括：自身的、继承的。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'length'</span> <span class="keyword">in</span> <span class="built_in">Date</span> <span class="comment">// true</span></span><br><span class="line"><span class="string">'toString'</span> <span class="keyword">in</span> <span class="built_in">Date</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 <p>获得对象的所有可枚举属性（不管是自身的还是继承的），<br>可以使用<code>for...in</code>循环。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o1 = &#123;<span class="attr">p1</span>: <span class="number">123</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> o2 = <span class="built_in">Object</span>.create(o1, &#123;</span><br><span class="line">  p2: &#123; <span class="attr">value</span>: <span class="string">"abc"</span>, <span class="attr">enumerable</span>: <span class="literal">true</span> &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">for</span> (p <span class="keyword">in</span> o2) &#123;<span class="built_in">console</span>.info(p);&#125;</span><br><span class="line"><span class="comment">// p2</span></span><br><span class="line"><span class="comment">// p1</span></span><br></pre></td></tr></table></figure>
@@ -398,6 +402,10 @@
 <ul>
 <li>确保拷贝后的对象，与原对象具有同样的prototype原型对象。</li>
 <li>确保拷贝后的对象，与原对象具有同样的属性。</li>
+</ul>
+<h2 id="prototype-对象"><a href="#prototype-对象" class="headerlink" title="prototype 对象"></a>prototype 对象</h2><p>prototype 对象作用：<br>为了解决对象的属性和方法共享问题，引入了“原型对象”。<br>定义所有实例对象共享的属性和方法。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li><a href="http://javascript.ruanyifeng.com/oop/basic.html" target="_blank" rel="noopener">构造函数与 new 命令</a></li>
 </ul>
 
       
@@ -439,8 +447,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/01/22/html5-blob/" rel="prev" title="HTML5 Blob 对象">
-                HTML5 Blob 对象 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/01/18/underscore_1/" rel="prev" title="Underscore 源码解读（一）">
+                Underscore 源码解读（一） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -518,7 +526,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-count">21</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -540,7 +548,7 @@
                 
                 <div class="site-state-item site-state-tags">
                   <a href="/tags/index.html">
-                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -583,7 +591,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造函数"><span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#new-命令"><span class="nav-text">new 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象与继承"><span class="nav-text">对象与继承</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造函数"><span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#new-命令"><span class="nav-text">new 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象与继承"><span class="nav-text">对象与继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#prototype-对象"><span class="nav-text">prototype 对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接"><span class="nav-text">参考链接</span></a></li></ol></div>
             
 
           </div>

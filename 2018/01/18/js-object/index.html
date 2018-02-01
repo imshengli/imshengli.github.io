@@ -62,7 +62,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="js," />
 
 
 
@@ -73,14 +73,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="https://imshengli.github.io/categories/index.html">
+<meta name="description" content="概述Redux 适用场景：多交互、多数据源。  从组件角度看：某个组件的状态，需要共享；某个状态需要在任何地方都可以拿到；一个组件需要改变全局状态；一个组件需要改变另一个组件的状态；  设计思想：  1）Web 应用是一个状态机，视图与状态是一一对应的。2）所有的状态，保存在一个对象里面。  12345678910111213141516171819202122232425262728293031">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redux">
+<meta property="og:url" content="https://imshengli.github.io/2018/01/24/redux/index.html">
 <meta property="og:site_name" content="ImShengli">
+<meta property="og:description" content="概述Redux 适用场景：多交互、多数据源。  从组件角度看：某个组件的状态，需要共享；某个状态需要在任何地方都可以拿到；一个组件需要改变全局状态；一个组件需要改变另一个组件的状态；  设计思想：  1）Web 应用是一个状态机，视图与状态是一一对应的。2）所有的状态，保存在一个对象里面。  12345678910111213141516171819202122232425262728293031">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-15T05:34:54.421Z">
+<meta property="og:updated_time" content="2018-01-24T01:35:48.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="分类">
+<meta name="twitter:title" content="Redux">
+<meta name="twitter:description" content="概述Redux 适用场景：多交互、多数据源。  从组件角度看：某个组件的状态，需要共享；某个状态需要在任何地方都可以拿到；一个组件需要改变全局状态；一个组件需要改变另一个组件的状态；  设计思想：  1）Web 应用是一个状态机，视图与状态是一一对应的。2）所有的状态，保存在一个对象里面。  12345678910111213141516171819202122232425262728293031">
 
 
 
@@ -112,7 +116,7 @@
 
 
 
-  <link rel="canonical" href="https://imshengli.github.io/categories/"/>
+  <link rel="canonical" href="https://imshengli.github.io/2018/01/24/redux/"/>
 
 
 
@@ -352,8 +356,87 @@
       
 
       
-        <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>JavaScript 的所有其他对象都继承自<code>Object</code>对象。</p>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2>
+        <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>JavaScript 原生对象：<code>Object</code>。<br>JavaScript 的所有其他对象都继承自<code>Object</code>对象。</p>
+<p>Object 对象的方法：</p>
+<ul>
+<li>Object 本身的方法（静态方法）：直接定义在 Object 对象的方法；</li>
+<li>Object 的实例方法：定义在 Object 原型对象 Object.prototype 上的方法；</li>
+</ul>
+<blockquote>
+<p>实例继承构造函数原型对象上的属性和方法。</p>
+</blockquote>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><p><strong>基本形式</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  foo: <span class="string">'Hello'</span>,</span><br><span class="line">  bar: <span class="string">'World'</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>对象的属性有下面几个描述符：</p>
+<ul>
+<li>configurable：是否可配置，只有当此描述符为true时，该描述符才能被改变，并且该属性才能被删除；</li>
+<li><p>enumerable：当且仅当该属性为true时，该属性才能够出现在对象的枚举属性中。</p>
+</li>
+<li><p>value：该属性对应的值。</p>
+</li>
+<li><p>writable：当且仅当该属性的writable为true时，value才能被赋值运算符改变。</p>
+</li>
+<li><p>get：一个给属性提供 getter 的方法。</p>
+</li>
+<li>set：一个给属性提供 setter 的方法。</li>
+</ul>
+<p><strong>delete</strong></p>
+<p>delete命令只能删除对象本身的属性，无法删除继承的属性。</p>
+<p><strong>in 运算符</strong></p>
+<p>用于检查对象是否包含某个属性（继承的也会返回 true）。</p>
+<p><strong>for…in</strong></p>
+<p>用来遍历一个对象的全部属性。</p>
+<p>它遍历的是对象所有可遍历（enumerable）的属性，会跳过不可遍历的属性。<br>它不仅遍历对象自身的属性，还遍历继承的属性。</p>
+<p><strong>with</strong></p>
+<p>操作同一个对象的多个属性时，提供一些书写的方便。</p>
+<p>如果with区块内部有变量的赋值操作，<br>必须是当前对象已经存在的属性，<br>否则会创造一个当前作用域的全局变量。<br>因此<strong>不建议采用</strong>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  p1: <span class="number">1</span>,</span><br><span class="line">  p2: <span class="number">2</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">with</span> (obj) &#123;</span><br><span class="line">  p1 = <span class="number">4</span>;</span><br><span class="line">  p2 = <span class="number">5</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 等同于</span></span><br><span class="line">obj.p1 = <span class="number">4</span>;</span><br><span class="line">obj.p2 = <span class="number">5</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="Object"><a href="#Object" class="headerlink" title="Object()"></a><code>Object()</code></h3><p>Object本身是一个函数，将任意值转为对象。<br>常用于保证某个值一定是对象。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 参数为无，undefined，null 时</span></span><br><span class="line"><span class="comment">// 返回空对象</span></span><br><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>();</span><br><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>(<span class="literal">undefined</span>);</span><br><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果参数是原始类型的值，</span></span><br><span class="line"><span class="comment">// Object方法将其转为对应的包装对象的实例</span></span><br><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>(<span class="string">'foo'</span>);</span><br><span class="line">obj <span class="keyword">instanceof</span> <span class="built_in">Object</span>; <span class="comment">// true</span></span><br><span class="line">obj <span class="keyword">instanceof</span> <span class="built_in">String</span>; <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果Object方法的参数是一个对象，</span></span><br><span class="line"><span class="comment">// 它总是返回该对象，即不用转换。</span></span><br><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>(fn); <span class="comment">// 返回原函数</span></span><br><span class="line">obj === fn; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h3 id="Object-构造函数"><a href="#Object-构造函数" class="headerlink" title="Object 构造函数"></a>Object 构造函数</h3><p>即前面可以使用new命令。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="comment">// 等同于</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="Object-的静态方法"><a href="#Object-的静态方法" class="headerlink" title="Object 的静态方法"></a>Object 的静态方法</h3><p><strong>Object.keys()</strong></p>
+<p>参数是一个对象，返回一个数组。<br>该数组的成员都是该对象自身的（而不是继承的）、可枚举的所有属性名。</p>
+<p><strong>Object.getOwnPropertyNames()</strong></p>
+<p>参数是一个对象，返回一个数组。<br>该数组的成员都是该对象自身的所有属性名。（包括不可枚举的）</p>
+<p><strong>Object.getOwnPropertyDescriptor()</strong></p>
+<p>获取某个属性的描述对象。</p>
+<p><strong>Object.defineProperty()</strong></p>
+<p>通过描述对象，定义某个属性。</p>
+<p><strong>Object.defineProperties()</strong></p>
+<p>通过描述对象，定义多个属性。</p>
+<p><strong>Object.preventExtensions()</strong></p>
+<p>防止对象扩展。</p>
+<p><strong>Object.isExtensible()</strong></p>
+<p>判断对象是否可扩展。</p>
+<p><strong>Object.seal()</strong></p>
+<p>禁止对象配置。</p>
+<p><strong>Object.isSealed()</strong></p>
+<p>判断一个对象是否可配置。</p>
+<p><strong>Object.freeze()</strong></p>
+<p>冻结一个对象。</p>
+<p><strong>Object.isFrozen()</strong></p>
+<p>判断一个对象是否被冻结。</p>
+<p><strong>Object.create()</strong></p>
+<p>该方法可以指定原型对象和属性，返回一个新的对象。</p>
+<p><strong>Object.getPrototypeOf()</strong></p>
+<p>获取对象的Prototype对象。</p>
+<h3 id="实例方法"><a href="#实例方法" class="headerlink" title="实例方法"></a>实例方法</h3><p><strong>Object.prototype.valueOf()</strong></p>
+<p>返回当前对象对应的值。<br>主要用途是：JavaScript 自动类型转换时会默认调用这个方法。</p>
+<p><strong>Object.prototype.toString()</strong></p>
+<p>返回当前对象对应的字符串形式。<br>对于一个对象调用<code>toString</code>方法，会返回字符串<code>[object Object]</code>，该字符串说明对象的类型。</p>
+<p>数组、字符串、函数、Date 对象都分别部署了自定义的toString方法，<br>覆盖了<code>Object.prototype.toString</code>方法。<br>为了得到类型字符串，<br>最好直接使用<code>Object.prototype.toString</code>方法。<br>通过函数的<code>call</code>方法，可以在任意值上调用这个方法，帮助我们判断这个值的类型。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.prototype.toString.call(value);</span><br></pre></td></tr></table></figure>
+<p><strong>Object.prototype.toLocaleString()</strong></p>
+<p>返回当前对象对应的本地字符串形式。<br>目前，主要有三个对象自定义了toLocaleString方法。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.toLocaleString();</span><br><span class="line"><span class="built_in">Number</span>.prototype.toLocaleString();</span><br><span class="line"><span class="built_in">Date</span>.prototype.toLocaleString();</span><br></pre></td></tr></table></figure>
+<p><strong>Object.prototype.hasOwnProperty()</strong></p>
+<p>判断某个属性是否为当前对象自身的属性，<br>还是继承自原型对象的属性。</p>
+<p><strong>Object.prototype.isPrototypeOf()</strong></p>
+<p>判断当前对象是否为另一个对象的原型。</p>
+<p><strong>Object.prototype.propertyIsEnumerable()</strong></p>
+<p>判断某个属性是否可枚举。</p>
+
       
     </div>
     
@@ -472,7 +555,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-count">21</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -494,7 +577,7 @@
                 
                 <div class="site-state-item site-state-tags">
                   <a href="/tags/index.html">
-                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -537,7 +620,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-text">概述</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法"><span class="nav-text">语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法"><span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Object"><span class="nav-text">Object()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-构造函数"><span class="nav-text">Object 构造函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-的静态方法"><span class="nav-text">Object 的静态方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例方法"><span class="nav-text">实例方法</span></a></li></ol></li></ol></div>
             
 
           </div>
