@@ -266,6 +266,162 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://imshengli.github.io/2018/02/08/js-closure/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangShengli">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ImShengli">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/08/js-closure/" itemprop="url">JS 闭包</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-08T13:21:10+08:00">2018-02-08</time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>变量作用域 -&gt; 链式作用域</p>
+<p>在外部如何读取内部的变量？</p>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><p>闭包就是能够读取其他函数内部变量的函数。</p>
+<p>简单理解成”定义在一个函数内部的函数”。</p>
+<p>在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。</p>
+<p>内部function会<code>close-over</code>外部function的变量。</p>
+<h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><p>一个是前面提到的可以读取函数内部的变量；<br>另一个就是让这些变量的值始终保持在内存中。</p>
+<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><p>内存消耗很大，所以不能滥用闭包；<br>闭包会在父函数外部，改变父函数内部变量的值。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li>Javascript编程精粹</li>
+<li><a href="https://stackoverflow.com/questions/111102/how-do-javascript-closures-work" target="_blank" rel="noopener">https://stackoverflow.com/questions/111102/how-do-javascript-closures-work</a></li>
+<li><a href="https://www.cnblogs.com/frankfang/archive/2011/08/03/2125663.html" target="_blank" rel="noopener">https://www.cnblogs.com/frankfang/archive/2011/08/03/2125663.html</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://imshengli.github.io/2018/02/01/underscore_1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1863,184 +2019,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-    <div class="reading-progress-bar"></div>
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://imshengli.github.io/2018/01/15/js-string/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZhangShengli">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ImShengli">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/15/js-string/" itemprop="url">JS 字符串</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-15T19:04:10+08:00">2018-01-15</time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>JavaScript 的字符以 <code>UTF-16</code> 格式存储，<br>每个字符占两个字节；<br>但对于大端字符，每个字符长度为2，占四个字节；<br><code>\</code>是 JavaScript 中的特殊处理，注意特殊处理；<br>字符数组长度和单个字符无法更改；</p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>如果长字符串必须分成多行，可以在每一行的尾部使用反斜杠。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 反斜杠的后面必须是换行符，而不能有其他字符（比如空格）</span></span><br><span class="line"><span class="keyword">var</span> longString = <span class="string">'Long \</span></span><br><span class="line"><span class="string">long \</span></span><br><span class="line"><span class="string">long \</span></span><br><span class="line"><span class="string">string'</span>;</span><br><span class="line">longString</span><br><span class="line"><span class="comment">// "Long long long string"</span></span><br></pre></td></tr></table></figure>
-<h2 id="转义"><a href="#转义" class="headerlink" title="转义"></a>转义</h2><p>反斜杠（\）在字符串内有特殊含义，<br>用来表示一些特殊字符，所以又称为转义符。</p>
-<blockquote>
-<p>\0 ：null（\u0000）<br>\b ：后退键（\u0008）<br>\f ：换页符（\u000C）<br>\n ：换行符（\u000A）<br>\r ：回车键（\u000D）<br>\t ：制表符（\u0009）<br>\v ：垂直制表符（\u000B）<br>\’ ：单引号（\u0027）<br>\” ：双引号（\u0022）<br>\ ：反斜杠（\u005C）</p>
-</blockquote>
-<p>如果在非特殊字符前面使用反斜杠，则反斜杠会被省略。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'\a'</span>; <span class="comment">// "a"</span></span><br></pre></td></tr></table></figure>
-<p>特殊用法：</p>
-<p>1）<code>\HHH</code>：紧跟三个八进制数（000到377），代表一个字符。</p>
-<p>HHH对应该字符的 Unicode 码点，比如<code>\251</code>表示版权符号。<br>显然，这种方法只能输出256种字符。</p>
-<p>2）<code>\xHH</code>：紧跟两个十六进制数（00到FF），代表一个字符。</p>
-<p>HH对应该字符的 Unicode 码点，比如<code>\xA9</code>表示版权符号。<br>这种方法也只能输出256种字符。</p>
-<p>3）<code>\uXXXX</code>：紧跟四个十六进制数（0000到FFFF），代表一个字符。</p>
-<p>HHHH对应该字符的 Unicode 码点，比如<code>\u00A9</code>表示版权符号。</p>
-<h2 id="字符串与数组"><a href="#字符串与数组" class="headerlink" title="字符串与数组"></a>字符串与数组</h2><p><strong>无法改变字符串之中的单个字符。</strong><br><strong>字符串 length 属性也是无法改变的</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="string">'hello'</span>;</span><br><span class="line"><span class="keyword">delete</span> s[<span class="number">0</span>];</span><br><span class="line">s <span class="comment">// "hello"</span></span><br><span class="line">s[<span class="number">1</span>] = <span class="string">'a'</span>;</span><br><span class="line">s <span class="comment">// "hello"</span></span><br><span class="line">s[<span class="number">5</span>] = <span class="string">'!'</span>;</span><br><span class="line">s <span class="comment">// "hello"</span></span><br></pre></td></tr></table></figure>
-<h2 id="字符集"><a href="#字符集" class="headerlink" title="字符集"></a>字符集</h2><p>JavaScript 使用 <code>Unicode</code> 字符集。<br>JavaScript 引擎内部，所有字符都用 <code>Unicode</code> 表示。</p>
-<p>JavaScript 允许直接在程序中使用 Unicode 码点表示字符，<br>即将字符写成<code>\uxxxx</code>的形式，其中<code>xxxx</code>代表该字符的 Unicode 码点。<br>比如，<code>\u00A9</code>代表版权符号。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> f\u006F\u006F = <span class="string">'abc'</span>;</span><br><span class="line">foo <span class="comment">// "abc"</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>UTF-16 是 Unicode 的实现；<br>每个字符在 JavaScript 内部都是以16位（即2个字节）的 UTF-16 格式储存。<br>也就是说，JavaScript 的单位字符长度固定为16位长度，即2个字节。<br>但是，UTF-16 有两种长度：<br>对于码点在U+0000到U+FFFF之间的字符，长度为16位（即2个字节）；<br>对于码点在U+10000到U+10FFFF之间的字符，长度为32位（即4个字节），<br>而且前两个字节在0xD800到0xDBFF之间，后两个字节在0xDC00到0xDFFF之间。<br>举例来说，码点<code>U+1D306</code>对应的字符为<code>𝌆</code>，它写成 UTF-16 就是<code>0xD834 0xDF06</code>。</p>
-</blockquote>
-<p>JavaScript 对 UTF-16 的支持是不完整的，<br>由于历史原因，只支持两字节的字符，不支持四字节的字符。<br>这是因为 JavaScript 第一版发布的时候，<br>Unicode 的码点只编到<code>U+FFFF</code>，因此两字节足够表示了。<br>后来，Unicode 纳入的字符越来越多，出现了四字节的编码。<br>但是，JavaScript 的标准此时已经定型了，<br>统一将字符长度限制在两字节，导致无法识别四字节的字符。<br>四字节字符<code>𝌆</code>，浏览器会正确识别这是一个字符，<br>但是 JavaScript 无法识别，会认为这是两个字符。</p>
-<h2 id="Base64-编码"><a href="#Base64-编码" class="headerlink" title="Base64 编码"></a>Base64 编码</h2><p>有时，文本里面包含一些不可打印的符号，<br>比如 ASCII 码0到31的符号都无法打印出来，<br>这时可以使用 Base64 编码，将它们转成可以打印的字符。<br>另一个场景是，有时需要以文本格式传递二进制数据，<br>那么也可以使用 Base64 编码。</p>
-<blockquote>
-<p>所谓 Base64 就是一种编码方法，<br>可以将任意值转成 0～9、A～Z、a-z、+和/这64个字符组成的可打印字符。<br>使用它的主要目的，不是为了加密，<br>而是为了不出现特殊字符，简化程序的处理。</p>
-<p><code>btoa()</code>：任意值转为 Base64 编码<br><code>atob()</code>：Base64 编码转为原来的值</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> string = <span class="string">'Hello World!'</span>;</span><br><span class="line">btoa(string) <span class="comment">// "SGVsbG8gV29ybGQh"</span></span><br><span class="line">atob(<span class="string">'SGVsbG8gV29ybGQh'</span>) <span class="comment">// "Hello World!"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 注意，这两个方法不适合非 ASCII 码的字符，会报错。</span></span><br><span class="line">btoa(<span class="string">'你好'</span>) <span class="comment">// 报错</span></span><br><span class="line"><span class="comment">// 要将非 ASCII 码字符转为 Base64 编码，</span></span><br><span class="line"><span class="comment">// 必须中间插入一个转码环节，再使用这两个方法。</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">b64Encode</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> btoa(<span class="built_in">encodeURIComponent</span>(str));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">b64Decode</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">decodeURIComponent</span>(atob(str));</span><br><span class="line">&#125;</span><br><span class="line">b64Encode(<span class="string">'你好'</span>) <span class="comment">// "JUU0JUJEJUEwJUU1JUE1JUJE"</span></span><br><span class="line">b64Decode(<span class="string">'JUU0JUJEJUEwJUU1JUE1JUJE'</span>) <span class="comment">// "你好"</span></span><br></pre></td></tr></table></figure>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
-<li><a href="http://javascript.ruanyifeng.com/grammar/string.html" target="_blank" rel="noopener">阮一峰，字符串</a></li>
-<li><a href="https://my.oschina.net/goal/blog/201032" target="_blank" rel="noopener">JavaScript: 详解Base64编码和解码</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2091,7 +2069,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

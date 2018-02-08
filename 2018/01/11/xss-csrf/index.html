@@ -330,7 +330,7 @@
       
 
       
-        <h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h3><p>XSS，跨站脚本攻击，即Cross Site Scripting，<br>为了和CSS不重名，所以取名为XSS。</p>
+        <h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h3><p>XSS，跨站脚本攻击，即 Cross Site Scripting，<br>为了和CSS不重名，所以取名为XSS。</p>
 <h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>XSS攻击者通过畸形的输入，<br>将恶意的js代码插入到了页面中。<br>当其他用户浏览该网页时，恶意的js代码会被执行，从而达到攻击的目的。</p>
 <p>XSS攻击发生的根本原因是<strong>对用户输入的信任</strong>。</p>
 <h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><ul>
@@ -347,6 +347,8 @@
 <p>M用户的畸形输入<br>-&gt; 后台服务器未经任何处理就存储<br>-&gt; 其他用户T请求数据<br>-&gt; M用户的畸形输入返回给T<br>-&gt; 用户T打开页面，XSS代码运行</p>
 <h4 id="DOM-XSS"><a href="#DOM-XSS" class="headerlink" title="DOM-XSS"></a>DOM-XSS</h4><p>纯粹发生在客户端的XSS攻击。</p>
 <h4 id="如何防范XSS"><a href="#如何防范XSS" class="headerlink" title="如何防范XSS?"></a>如何防范XSS?</h4><p>因此我们要对用户的输入（url参数/post数据等）当做不可信数据来处理。</p>
+<p>那能否从根本上这种行为呢？</p>
+<p>Content Security Policy</p>
 <h3 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h3><p>CSRF，跨站请求伪造，即<code>Cross Site Request Forgery</code>。</p>
 <h4 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h4><p>CSRF可以在受害者毫不知情的情况下以受害者名义发送请求。<br>其原理是<strong>借助受害者的cookie来骗取服务器的信任</strong>。</p>
 <p>比如，受害者T登录了某个银行网站，<br>sessionId等信息就会保存在浏览器中。<br>这时候，用户T又打开了CSRF攻击网站，<br>这个网站通过表单自动提交来向银行网站发起一次转账请求，<br>这样，受害者T的银行账户的钱可能就被转走了。</p>
@@ -474,7 +476,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
